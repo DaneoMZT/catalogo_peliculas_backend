@@ -1,6 +1,6 @@
 <?php
 // 🔹 Incluir conexión usando variables de entorno de Railway
-require 'db.php';
+require __DIR__ . '/../../db.php';
 
 // ---------------------------------------------
 // 🔹 CONSULTAR LAS PELÍCULAS
