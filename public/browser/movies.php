@@ -52,28 +52,30 @@ img { border-radius:6px; max-width:100px; height:auto;}
 <table>
 <thead>
 <tr>
-<?php
-$fields = $result->fetch_fields();
-foreach ($fields as $field) { echo "<th>".htmlspecialchars($field->name)."</th>"; }
-?>
+<th>ID</th>
+<th>Título</th>
+<th>Director</th>
+<th>Año</th>
+<th>Descripción</th>
+<th>Imagen</th>
 <th>Acciones</th>
 </tr>
 </thead>
 <tbody>
 <?php
-$result->data_seek(0);
 while($row = $result->fetch_assoc()):
 ?>
 <tr>
-<?php foreach($row as $key=>$value): ?>
+<td><?= htmlspecialchars($row['id']) ?></td>
+<td><?= htmlspecialchars($row['title']) ?></td>
+<td><?= htmlspecialchars($row['director']) ?></td>
+<td><?= htmlspecialchars($row['year']) ?></td>
+<td><?= htmlspecialchars($row['description']) ?></td>
 <td>
-<?php if($key==='image' && !empty($value)): ?>
-<img src="<?= htmlspecialchars($value) ?>" alt="Imagen">
-<?php else: ?>
-<?= htmlspecialchars($value) ?>
+<?php if(!empty($row['image'])): ?>
+<img src="<?= htmlspecialchars($row['image']) ?>" alt="Imagen">
 <?php endif; ?>
 </td>
-<?php endforeach; ?>
 <td>
 <a href="edit_movie.php?id=<?= $row['id'] ?>" class="btn btn-edit">✏️ Editar</a>
 <a href="?delete=<?= $row['id'] ?>" class="btn btn-delete" onclick="return confirm('¿Seguro que quieres eliminar esta película?');">🗑️ Borrar</a>

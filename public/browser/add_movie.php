@@ -3,18 +3,16 @@ require 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'] ?? '';
-    $description = $_POST['description'] ?? '';
-    $year = $_POST['year'] ?? 0;
-    $image = $_POST['image'] ?? '';
     $director = $_POST['director'] ?? '';
+    $year = $_POST['year'] ?? 0;
+    $description = $_POST['description'] ?? '';
+    $image = $_POST['image'] ?? '';
 
-    // Preparar el INSERT incluyendo director
-    $stmt = $conn->prepare("INSERT INTO movies (title, description, year, image, director) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssiss", $title, $description, $year, $image, $director);
+    $stmt = $conn->prepare("INSERT INTO movies (title, director, year, description, image) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssiss", $title, $director, $year, $description, $image);
     $stmt->execute();
     $stmt->close();
 
-    // Redirigir de nuevo a movies.php
     header("Location: movies.php");
     exit();
 }
@@ -36,10 +34,10 @@ button { padding:10px 20px; background:#28a745; color:white; border:none; border
 <h1>➕ Agregar Película</h1>
 <form method="POST">
 <input type="text" name="title" placeholder="Título" required><br>
-<textarea name="description" placeholder="Descripción"></textarea><br>
-<input type="number" name="year" placeholder="Año"><br>
-<input type="text" name="image" placeholder="URL Imagen"><br>
 <input type="text" name="director" placeholder="Director" required><br>
+<input type="number" name="year" placeholder="Año"><br>
+<textarea name="description" placeholder="Descripción"></textarea><br>
+<input type="text" name="image" placeholder="URL Imagen"><br>
 <button type="submit">Agregar</button>
 </form>
 <a href="movies.php" style="color:#00f;">⬅ Volver al catálogo</a>
