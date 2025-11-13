@@ -13,10 +13,11 @@ $result = $conn->query($sql);
   <meta charset="utf-8">
   <title>Catálogo de Películas 🎬</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #111;
+      background: #111; /* 🔹 Fondo oscuro original */
       color: #fff;
       text-align: center;
       padding: 20px;
@@ -28,6 +29,7 @@ $result = $conn->query($sql);
       background: #1a1a1a;
       border-radius: 10px;
       overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
     }
     th, td {
       padding: 12px;
@@ -44,6 +46,18 @@ $result = $conn->query($sql);
     tr:hover {
       background-color: #333;
       transition: 0.3s;
+    }
+    footer {
+      margin-top: 40px;
+      color: #aaa;
+      font-size: 14px;
+    }
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -85,6 +99,13 @@ $result = $conn->query($sql);
   <?php else: ?>
     <p>No hay películas registradas.</p>
   <?php endif; ?>
+
+  <footer>
+    <p>© 2025 Catálogo de Películas 🎬 | Desarrollado por <strong>Daniel Ruiz Beltrán</strong></p>
+    <p>Materia: <strong>Conceptualización de entornos de desarrollo de aplicaciones y servicios</strong></p>
+    <p>Código: <strong>399426381</strong></p>
+    <p>Correo: <a href="mailto:ruizdaneo@gmail.com">ruizdaneo@gmail.com</a></p>
+  </footer>
 
 </body>
 </html>
