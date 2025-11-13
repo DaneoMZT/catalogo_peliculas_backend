@@ -17,19 +17,28 @@ $result = $conn->query($sql);
   <title>Catálogo de Películas 🎬</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #111;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #fff;
       text-align: center;
       padding: 20px;
+      background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                  url('https://images.unsplash.com/photo-1517602302552-471fe67acf66?auto=format&fit=crop&w=1950&q=80')
+                  no-repeat center center fixed;
+      background-size: cover;
+    }
+    h1 {
+      margin-top: 20px;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 8px #000;
     }
     table {
       width: 90%;
-      margin: 20px auto;
+      margin: 40px auto;
       border-collapse: collapse;
-      background: #1a1a1a;
+      background: rgba(30, 30, 30, 0.9);
       border-radius: 10px;
       overflow: hidden;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
     th, td {
       padding: 12px;
@@ -51,6 +60,12 @@ $result = $conn->query($sql);
       border-radius: 6px;
       max-width: 100px;
       height: auto;
+      box-shadow: 0 0 8px rgba(0,0,0,0.6);
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #ccc;
     }
   </style>
 </head>
@@ -63,7 +78,7 @@ $result = $conn->query($sql);
       <thead>
         <tr>
           <?php
-          // 🔹 Generar dinámicamente los encabezados según las columnas de la base de datos
+          // 🔹 Encabezados dinámicos según las columnas de la base de datos
           $fields = $result->fetch_fields();
           foreach ($fields as $field) {
               echo "<th>" . htmlspecialchars($field->name) . "</th>";
@@ -73,7 +88,7 @@ $result = $conn->query($sql);
       </thead>
       <tbody>
         <?php
-        // 🔹 Regresar el puntero al inicio y recorrer todos los registros
+        // 🔹 Reiniciar el puntero y recorrer todos los registros
         $result->data_seek(0);
         while ($row = $result->fetch_assoc()):
         ?>
@@ -81,7 +96,7 @@ $result = $conn->query($sql);
             <?php foreach ($row as $key => $value): ?>
               <td>
                 <?php if ($key === 'image' && !empty($value)): ?>
-                  <img src="<?= htmlspecialchars($value) ?>" alt="Imagen" width="100">
+                  <img src="<?= htmlspecialchars($value) ?>" alt="Imagen">
                 <?php else: ?>
                   <?= htmlspecialchars($value) ?>
                 <?php endif; ?>
@@ -94,6 +109,10 @@ $result = $conn->query($sql);
   <?php else: ?>
     <p>No hay películas registradas.</p>
   <?php endif; ?>
+
+  <footer>
+    © 2025 Catálogo de Películas | Desarrollado por <strong>Daniel Ruiz Beltrán</strong>
+  </footer>
 
 </body>
 </html>
