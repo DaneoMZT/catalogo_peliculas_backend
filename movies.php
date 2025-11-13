@@ -1,5 +1,5 @@
 <?php
-// 🔹 Incluir conexión usando variables de entorno de Railway
+// 🔹 Conexión a la base de datos (usa variables de entorno en Railway)
 require 'db.php';
 
 // ---------------------------------------------
@@ -24,19 +24,28 @@ $result = $conn->query($sql);
       padding: 20px;
     }
     table {
-      width: 80%;
+      width: 90%;
       margin: 20px auto;
       border-collapse: collapse;
+      background: #1a1a1a;
+      border-radius: 10px;
+      overflow: hidden;
     }
     th, td {
       padding: 12px;
-      border: 1px solid #555;
+      border-bottom: 1px solid #444;
     }
     th {
       background-color: #333;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     tr:nth-child(even) {
       background-color: #222;
+    }
+    tr:hover {
+      background-color: #333;
+      transition: 0.3s;
     }
   </style>
 </head>
@@ -46,20 +55,24 @@ $result = $conn->query($sql);
 
   <?php if ($result && $result->num_rows > 0): ?>
     <table>
-      <tr>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Descripción</th>
-        <th>Año</th>
-      </tr>
-      <?php while ($row = $result->fetch_assoc()): ?>
+      <thead>
         <tr>
-          <td><?= htmlspecialchars($row['id']) ?></td>
-          <td><?= htmlspecialchars($row['title']) ?></td>
-          <td><?= htmlspecialchars($row['description']) ?></td>
-          <td><?= htmlspecialchars($row['year']) ?></td>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Descripción</th>
+          <th>Año</th>
         </tr>
-      <?php endwhile; ?>
+      </thead>
+      <tbody>
+        <?php while ($row = $result->fetch_assoc()): ?>
+          <tr>
+            <td><?= htmlspecialchars($row['id']) ?></td>
+            <td><?= htmlspecialchars($row['title']) ?></td>
+            <td><?= htmlspecialchars($row['description']) ?></td>
+            <td><?= htmlspecialchars($row['year']) ?></td>
+          </tr>
+        <?php endwhile; ?>
+      </tbody>
     </table>
   <?php else: ?>
     <p>No hay películas registradas.</p>
